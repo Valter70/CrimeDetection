@@ -1,4 +1,4 @@
-// Служби розкриття
+// Служби раскрытия
 enum class Department(val statName: String, val shortName: String) {
     VKP("ПРАЦ.КР", "ВКП"),
     VPD("ДIЛЬНИЧИЙ ОФІЦЕР ПОЛІЦІЇ", "ВПД"),

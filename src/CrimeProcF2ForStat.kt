@@ -1,4 +1,4 @@
-// Структура для формування списка КП
+// Структура для формирования списка КП
 data class CrimeCaseF2ForStat(
     val number: String,
     val article: String,

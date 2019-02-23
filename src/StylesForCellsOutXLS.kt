@@ -7,7 +7,7 @@ fun setStyleForTabTitle(range: IntRange, row: HSSFRow, style: HSSFCellStyle) {
     }
 }
 
-// 4800 відповідає розміру 18 в Excel
+// 4800 соответствует размеру 18 в Excel
 fun setColumnWidthOnMainSheet(sheet: HSSFSheet) {
     val setOfColumn = setOf(0, 1, 2, 3 ,5, 6 ,7 ,8)
     for(col in setOfColumn)

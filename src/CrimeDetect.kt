@@ -10,13 +10,16 @@ fun main(args: Array<String>) {
     val statByArticle185 = createStatByArticle185(crimeOfArticle185)
 
     val wbOut = HSSFWorkbook()
-    val sheetOut = wbOut.createSheet("Загальна")
+    val sheetGlobal = wbOut.createSheet("Загальна")
 
-    writeHeaderOnMainSheet(wbOut, sheetOut)
+    writeHeaderOnMainSheet(wbOut)
     val endOfRange = FIRST_INDICATOR_ROW + statByArticle.size + statByArticle185.size
-    setRowHeightOnMainSheet(sheetOut, FIRST_INDICATOR_ROW..endOfRange)
+    setRowHeightOnMainSheet(sheetGlobal, FIRST_INDICATOR_ROW..endOfRange)
     writeDepartTabOnMainSheet(wbOut, statByDepart)
     writeArticleTabOnMainSheet(wbOut, statByArticle, statByArticle185)
+
+    val sheetDetail = wbOut.createSheet("Детальна")
+    writeHeaderOnDetailSheet(wbOut, statByDepart)
 
     closeOutXLSFile(wbOut)
 

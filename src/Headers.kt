@@ -10,7 +10,7 @@ fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
     writeTabTitleOnMainSheet(wb, sheet)
 }
 
-fun writeHeaderOnDetailSheet(wb: HSSFWorkbook, statByDepart: List<StatForOutXLS>) {
+fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(1)
     val lastColumn = statByDepart.size * 2 + 3
     writeFirstTitle(wb, sheet, lastColumn)

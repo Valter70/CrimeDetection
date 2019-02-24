@@ -1,7 +1,7 @@
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
-fun writeArticleTabOnMainSheet(wb: HSSFWorkbook, statByArticle: MutableList<StatForOutXLS>, statByArticle185: MutableList<StatForOutXLS>) {
-    writeArticleIndicator(wb, statByArticle, statByArticle185)
+fun writeArticleTabOnMainSheet(wb: HSSFWorkbook) {
+    writeArticleIndicator(wb)
 
     val totalArticleTabSize = statByArticle.size + statByArticle185.size
     val rangeRows = FIRST_INDICATOR_ROW..(FIRST_INDICATOR_ROW + totalArticleTabSize - 1)
@@ -10,7 +10,7 @@ fun writeArticleTabOnMainSheet(wb: HSSFWorkbook, statByArticle: MutableList<Stat
     writeArticleTotalSumm(wb, statByArticle)
 }
 
-fun writeArticleIndicator(wb: HSSFWorkbook, statByArticle: MutableList<StatForOutXLS>, statByArticle185: MutableList<StatForOutXLS>) {
+fun writeArticleIndicator(wb: HSSFWorkbook) {
     var part185 = 0
     for(index in 0..(statByArticle.size - 1)) {
         val row = wb.getSheetAt(0).getRow(FIRST_INDICATOR_ROW + index + part185)
@@ -18,13 +18,13 @@ fun writeArticleIndicator(wb: HSSFWorkbook, statByArticle: MutableList<StatForOu
         val articleName = statByArticle[index].nameIndicator.substring(3)
         if(articleName == "185") {
             part185 = 5
-            writeArticle185Indicator(wb, statByArticle185, FIRST_INDICATOR_ROW + index + 1)
+            writeArticle185Indicator(wb, FIRST_INDICATOR_ROW + index + 1)
         }
     }
 
 }
 
-fun writeArticle185Indicator(wb: HSSFWorkbook, statByArticle185: MutableList<StatForOutXLS>, startIndex: Int) {
+fun writeArticle185Indicator(wb: HSSFWorkbook, startIndex: Int) {
     for(index in 0..(statByArticle185.size - 1)) {
         val row = wb.getSheetAt(0).getRow(startIndex + index)
         writeIndicatorToTab(row, 5, statByArticle185[index])
@@ -32,7 +32,7 @@ fun writeArticle185Indicator(wb: HSSFWorkbook, statByArticle185: MutableList<Sta
 
 }
 
-fun createStatByArticle(crimeList: List<CrimeCaseF2ForStat>) : MutableList<StatForOutXLS> {
+fun createStatByArticle() : MutableList<StatForOutXLS> {
     val listOfArticle = crimeList.map { it.article.substringBefore(' ') }.toSet()
     val statByArticle: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
     for(rec in GravityOfCrime.values()) {
@@ -65,13 +65,13 @@ fun writeArticleTotalSumm(wb: HSSFWorkbook, statByArticle: MutableList<StatForOu
 
 }
 
-fun createStatByArticle185(crime185List: List<CrimeCaseF2ForStat>) : MutableList<StatForOutXLS> {
+fun createStatByArticle185() : MutableList<StatForOutXLS> {
     val statByArticle185: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
 
     for(rec in 1..5) {
         val part185 = "Ч.$rec"
-        val currentYear = crime185List.count { it.isCurrentYear && it.article.substringAfter(' ') == part185 }
-        val pastYear = crime185List.count { !it.isCurrentYear && it.article.substringAfter(' ') == part185 }
+        val currentYear = crimeOfArticle185.count { it.isCurrentYear && it.article.substringAfter(' ') == part185 }
+        val pastYear = crimeOfArticle185.count { !it.isCurrentYear && it.article.substringAfter(' ') == part185 }
         statByArticle185.add(StatForOutXLS("-" + part185.toLowerCase(), pastYear, currentYear))
     }
     statByArticle185.removeAt(0)

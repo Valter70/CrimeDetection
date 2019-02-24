@@ -1,18 +1,18 @@
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.util.CellRangeAddress
 
-fun writeDepartTabOnMainSheet(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutXLS>) {
-    writeVPIndicators(wb, statByDepart)
+fun writeDepartTabOnMainSheet(wb: HSSFWorkbook) {
+    writeVPIndicators(wb)
     writeGUNPTitle(wb)
 
     statByDepart.removeIf { it.total == 0 && it.nameIndicator in DEPART_GUNP }
 
-    writeGUNPIndicators(wb, statByDepart)
-    setDepartIndicatorsStyle(wb, statByDepart)
-    writeDepartTotalSumm(wb, statByDepart)
+    writeGUNPIndicators(wb)
+    setDepartIndicatorsStyle(wb)
+    writeDepartTotalSumm(wb)
 }
 
-fun writeVPIndicators(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutXLS>) {
+fun writeVPIndicators(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(0)
     for(index in 0..3) {
         val row = sheet.getRow(FIRST_INDICATOR_ROW + index)
@@ -28,7 +28,7 @@ fun writeGUNPTitle(wb: HSSFWorkbook) {
     writeCellTitle(sheet.getRow(9), "ГУНП", style)
 }
 
-fun writeGUNPIndicators(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutXLS>) {
+fun writeGUNPIndicators(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(0)
     for(index in 4..(statByDepart.size - 1)) {
         val row = sheet.getRow(index + 6)
@@ -36,7 +36,7 @@ fun writeGUNPIndicators(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutXL
     }
 }
 
-fun createStatByDepart(crimeList: List<CrimeCaseF2ForStat>) : MutableList<StatForOutXLS> {
+fun createStatByDepart() : MutableList<StatForOutXLS> {
     val statByDepart: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
     for(rec in Department.values()) {
         val depart = rec.shortName
@@ -48,7 +48,7 @@ fun createStatByDepart(crimeList: List<CrimeCaseF2ForStat>) : MutableList<StatFo
     return  statByDepart
 }
 
-fun writeDepartTotalSumm(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutXLS>) {
+fun writeDepartTotalSumm(wb: HSSFWorkbook) {
     val endRowIndex = FIRST_INDICATOR_ROW + statByDepart.size + 1
     val totalSummRow = wb.getSheetAt(0).getRow(endRowIndex)
     val totalSumm = createTotalSumm(statByDepart)
@@ -59,7 +59,7 @@ fun writeDepartTotalSumm(wb: HSSFWorkbook, statByDepart: MutableList<StatForOutX
 
 }
 
-fun setDepartIndicatorsStyle(wb: HSSFWorkbook, statByDepart: List<StatForOutXLS>) {
+fun setDepartIndicatorsStyle(wb: HSSFWorkbook) {
     var rangeRows = FIRST_INDICATOR_ROW..(FIRST_INDICATOR_ROW + 3)
     setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN)
 

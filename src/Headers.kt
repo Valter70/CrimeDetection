@@ -2,27 +2,34 @@ import org.apache.poi.hssf.usermodel.*
 import org.apache.poi.ss.util.CellRangeAddress
 
 
-fun writeHeaderOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
-
-    writeFirstTitleOnMainSheet(wb, sheet)
-    writeSecondTitleOnMainSheet(wb, sheet)
+fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
+    val sheet = wb.getSheetAt(0)
+    writeFirstTitle(wb, sheet, 8)
+    writeSecondTitle(wb, sheet, 8)
     setColumnWidthOnMainSheet(sheet)
     writeTabTitleOnMainSheet(wb, sheet)
 }
 
-fun writeFirstTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
+fun writeHeaderOnDetailSheet(wb: HSSFWorkbook, statByDepart: List<StatForOutXLS>) {
+    val sheet = wb.getSheetAt(1)
+    val lastColumn = statByDepart.size * 2 + 3
+    writeFirstTitle(wb, sheet, lastColumn)
+    writeSecondTitle(wb, sheet, lastColumn)
+}
+
+fun writeFirstTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
     val style = createStyleForTitle(wb)
     style.setFont(setFontForFirstTitle(wb.createFont()))
-    sheet.addMergedRegion(CellRangeAddress(0, 0, 0, 8))
+    sheet.addMergedRegion(CellRangeAddress(0, 0, 0, lastColumnTitle))
     val row = sheet.createRow(0)
     row.heightInPoints = 31.5F
     writeCellTitle(row, "ПОВІДОМЛЕННЯ ПРО ПІДОЗРУ", style)
 }
 
-fun writeSecondTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
+fun writeSecondTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
     val style = createStyleForTitle(wb)
     style.setFont(setFontForSecondTitle(wb.createFont()))
-    sheet.addMergedRegion(CellRangeAddress(1, 1, 0, 8))
+    sheet.addMergedRegion(CellRangeAddress(1, 1, 0, lastColumnTitle))
     val row = sheet.createRow(1)
     row.heightInPoints = 21F
     writeCellTitle(row, "по службах Рівненського ВП за грудень ${CURRENT_YEAR}р.", style)

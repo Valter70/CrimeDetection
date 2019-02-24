@@ -7,11 +7,9 @@ fun setStyleForTabTitle(range: IntRange, row: HSSFRow, style: HSSFCellStyle) {
     }
 }
 
-// 4800 соответствует размеру 18 в Excel
-fun setColumnWidthOnMainSheet(sheet: HSSFSheet) {
-    val setOfColumn = setOf(0, 1, 2, 3 ,5, 6 ,7 ,8)
-    for(col in setOfColumn)
-        sheet.setColumnWidth(col, 4800)
+fun setColumnWidth(sheet: HSSFSheet, columnRange: IntRange, columnWidth: Int) {
+    for(col in columnRange)
+        sheet.setColumnWidth(col, columnWidth)
 }
 
 fun setFontForFirstTitle(font: Font) : Font {

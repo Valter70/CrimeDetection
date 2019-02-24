@@ -6,15 +6,17 @@ fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(0)
     writeFirstTitle(wb, sheet, 8)
     writeSecondTitle(wb, sheet, 8)
-    setColumnWidthOnMainSheet(sheet)
+    setColumnWidth(sheet, 0..8, GLOBAL_COLUMN_WIDTH)
     writeTabTitleOnMainSheet(wb, sheet)
 }
 
 fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(1)
+    //Каждя служба по 2 колонки плюс общие цифры
     val lastColumn = statByDepart.size * 2 + 3
     writeFirstTitle(wb, sheet, lastColumn)
     writeSecondTitle(wb, sheet, lastColumn)
+    setColumnWidth(sheet, 0..lastColumn, DETAIL_COLUMN_WIDTH)
 }
 
 fun writeFirstTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {

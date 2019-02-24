@@ -3,16 +3,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-const val CURRENT_YEAR = 2018
-const val FIRST_INDICATOR_ROW = 5
-const val ARTICLE_CELL = 4
-const val DEPART_CELL = 5
-const val GRAVITY_CELL = 6
-const val INPUT_XLS_FILE_NAME = "f2-12.xls"
-const val OUTPUT_XLS_FILE_NAME = "sluF2.xls"
-val DEPART_COLUMN = 0..3
-val ARTICLE_COLUMN = 5..8
-
 fun getArticleOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(ARTICLE_CELL).stringCellValue.substring(3)
 
 fun getDepartOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(DEPART_CELL).stringCellValue

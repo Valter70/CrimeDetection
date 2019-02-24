@@ -1,4 +1,4 @@
-// Тяжкість КП
+// Тяжкость КП
 enum class GravityOfCrime(val statName: String) {
     T1("НЕВЕЛИКОЇ ТЯЖКОСТІ"),
     T2("СЕРЕДНЬОЇ ТЯЖКОСТІ"),

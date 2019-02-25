@@ -15,7 +15,7 @@ fun writeDepartTabOnMainSheet(wb: HSSFWorkbook) {
 fun writeVPIndicators(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(0)
     for(index in 0..3) {
-        val row = sheet.getRow(FIRST_INDICATOR_ROW + index)
+        val row = sheet.getRow(FIRST_GLOBAL_INDICATOR_ROW + index)
         writeIndicatorToTab(row, 0, statByDepart[index])
     }
 }
@@ -49,7 +49,7 @@ fun createStatByDepart() : MutableList<StatForOutXLS> {
 }
 
 fun writeDepartTotalSumm(wb: HSSFWorkbook) {
-    val endRowIndex = FIRST_INDICATOR_ROW + statByDepart.size + 1
+    val endRowIndex = FIRST_GLOBAL_INDICATOR_ROW + statByDepart.size + 1
     val totalSummRow = wb.getSheetAt(0).getRow(endRowIndex)
     val totalSumm = createTotalSumm(statByDepart)
 
@@ -60,10 +60,10 @@ fun writeDepartTotalSumm(wb: HSSFWorkbook) {
 }
 
 fun setDepartIndicatorsStyle(wb: HSSFWorkbook) {
-    var rangeRows = FIRST_INDICATOR_ROW..(FIRST_INDICATOR_ROW + 3)
+    var rangeRows = FIRST_GLOBAL_INDICATOR_ROW..(FIRST_GLOBAL_INDICATOR_ROW + 3)
     setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN)
 
-    rangeRows = (FIRST_INDICATOR_ROW + 5)..(FIRST_INDICATOR_ROW + statByDepart.size)
+    rangeRows = (FIRST_GLOBAL_INDICATOR_ROW + 5)..(FIRST_GLOBAL_INDICATOR_ROW + statByDepart.size)
     setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN)
 
 }

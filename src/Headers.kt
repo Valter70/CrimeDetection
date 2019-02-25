@@ -17,6 +17,7 @@ fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
     writeFirstTitle(wb, sheet, lastColumn)
     writeSecondTitle(wb, sheet, lastColumn)
     setColumnWidth(sheet, 0..lastColumn, DETAIL_COLUMN_WIDTH)
+    writeTabTitleOnDetailSheet(wb, sheet)
 }
 
 fun writeFirstTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
@@ -54,6 +55,10 @@ fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     row.createCell(7).setCellValue("мин.роки")
     row.createCell(8).setCellValue(CURRENT_YEAR.toString())
     setStyleForTabTitle(5..8, row, style)
+}
+
+fun writeTabTitleOnDetailSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
+
 }
 
 fun writeCellTitle(row: HSSFRow, cellValue: String, cellStyle: HSSFCellStyle) {

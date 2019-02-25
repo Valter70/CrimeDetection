@@ -6,8 +6,8 @@ fun main(args: Array<String>) {
     val sheetGlobal = wbOut.createSheet("Загальна")
 
     writeHeaderOnMainSheet(wbOut)
-    val endOfRange = FIRST_INDICATOR_ROW + statByArticle.size + statByArticle185.size
-    setRowHeightOnMainSheet(sheetGlobal, FIRST_INDICATOR_ROW..endOfRange)
+    val endOfRange = FIRST_GLOBAL_INDICATOR_ROW + statByArticle.size + statByArticle185.size
+    setRowHeightOnMainSheet(sheetGlobal, FIRST_GLOBAL_INDICATOR_ROW..endOfRange)
     writeDepartTabOnMainSheet(wbOut)
     writeArticleTabOnMainSheet(wbOut)
 

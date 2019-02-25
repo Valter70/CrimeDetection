@@ -1,5 +1,6 @@
 const val CURRENT_YEAR = 2018
-const val FIRST_INDICATOR_ROW = 5
+const val FIRST_GLOBAL_INDICATOR_ROW = 5
+const val FIRST_DETAIL_INDICATOR_ROW = 7
 const val ARTICLE_CELL = 4
 const val DEPART_CELL = 5
 const val GRAVITY_CELL = 6

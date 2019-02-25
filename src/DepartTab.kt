@@ -24,7 +24,7 @@ fun writeGUNPTitle(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(0)
     sheet.addMergedRegion(CellRangeAddress(9, 9, 0, 3))
     val style = createStyleForTitle(wb)
-    style.setFont(setFontForTabTitle(wb.createFont()))
+    style.setFont(setFontForTabTitle(wb.createFont(), 18))
     writeCellTitle(sheet.getRow(9), "ГУНП", style)
 }
 

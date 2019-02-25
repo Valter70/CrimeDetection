@@ -13,6 +13,7 @@ fun main(args: Array<String>) {
 
     val sheetDetail = wbOut.createSheet("Детальна")
     writeHeaderOnDetailSheet(wbOut)
+    wbOut.setActiveSheet(1)
 
     closeOutXLSFile(wbOut)
 

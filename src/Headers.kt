@@ -47,7 +47,7 @@ fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     row.createCell(2).setCellValue("мин.роки")
     row.createCell(3).setCellValue(CURRENT_YEAR.toString())
     val style = createStyleWithBorder(wb)
-    style.setFont(setFontForTabTitle(wb.createFont()))
+    style.setFont(setFontForTabTitle(wb.createFont(), 18))
     setStyleForTabTitle(0..3, row, style)
 
     row.createCell(5).setCellValue("Стаття")
@@ -58,6 +58,31 @@ fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
 }
 
 fun writeTabTitleOnDetailSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
+    wb.getSheetAt(1).createRow(4)
+    wb.getSheetAt(1).createRow(5)
+    val style = createStyleWithBorder(wb)
+    style.setFont(setFontForTabTitle(wb.createFont(), 16))
+
+    sheet.getRow(4).createCell(0)
+    sheet.getRow(5).createCell(0)
+    sheet.addMergedRegion(CellRangeAddress(4, 5, 0, 0))
+
+    for(col in 1..(statByDepart.size)) {
+        writeBlockTitle(sheet, style, (col * 2 - 1), statByDepart[col - 1].nameIndicator)
+    }
+    setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(4), style)
+    setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(5), style)
+
+}
+
+fun writeBlockTitle(sheet: HSSFSheet, style: HSSFCellStyle, startColumn: Int, title: String) {
+    val endColumn = startColumn + 1
+    sheet.addMergedRegion(CellRangeAddress(4, 4, startColumn, endColumn))
+    sheet.getRow(4) .createCell(startColumn).setCellValue(title)
+    sheet.getRow(4) .createCell(endColumn)
+
+    sheet.getRow(5).createCell(startColumn).setCellValue("мин.роки")
+    sheet.getRow(5).createCell(endColumn).setCellValue("2018")
 
 }
 

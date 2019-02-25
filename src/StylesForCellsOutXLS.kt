@@ -1,8 +1,8 @@
 import org.apache.poi.hssf.usermodel.*
 import org.apache.poi.ss.usermodel.*
 
-fun setStyleForTabTitle(range: IntRange, row: HSSFRow, style: HSSFCellStyle) {
-    for(cell in range) {
+fun setStyleForTabTitle(rangeCell: IntRange, row: HSSFRow, style: HSSFCellStyle) {
+    for(cell in rangeCell) {
         row.getCell(cell).setCellStyle(style)
     }
 }
@@ -27,9 +27,9 @@ fun setFontForSecondTitle(font: Font) : Font {
     return font
 }
 
-fun setFontForTabTitle(font: Font) : Font {
+fun setFontForTabTitle(font: Font, height: Short) : Font {
     font.fontName = "Colibri"
-    font.fontHeightInPoints = 18
+    font.fontHeightInPoints = height
     font.bold = true
     return font
 }

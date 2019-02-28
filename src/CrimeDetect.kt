@@ -12,7 +12,13 @@ fun main(args: Array<String>) {
     writeArticleTabOnMainSheet(wbOut)
 
     val sheetDetail = wbOut.createSheet("Детальна")
+    statByDepart.add(0, createTotalSumm(statByDepart))
     writeHeaderOnDetailSheet(wbOut)
+    endOfRange = FIRST_DETAIL_INDICATOR_ROW + statByArticle.size + statByArticle185.size
+    setRowHeightOnMainSheet(sheetDetail, FIRST_DETAIL_INDICATOR_ROW..endOfRange)
+
+    writeTabOnDetailSheet(wbOut)
+
     wbOut.setActiveSheet(1)
 
     closeOutXLSFile(wbOut)

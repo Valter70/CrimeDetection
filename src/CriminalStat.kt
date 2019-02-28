@@ -63,12 +63,17 @@ fun closeOutXLSFile(wb: HSSFWorkbook) {
 fun writeIndicatorToTab(row: HSSFRow, startCell: Int, indicator: StatForOutXLS) {
     row.createCell(startCell).setCellValue(indicator.nameIndicator)
     row.createCell(startCell + 1).setCellValue(indicator.total.toDouble())
-    row.createCell(startCell + 2)
+    writeYearIndicatorToTab(row, startCell + 2, indicator)
+}
+
+fun writeYearIndicatorToTab(row: HSSFRow, startCell: Int, indicator: StatForOutXLS) {
+    row.createCell(startCell)
     if(indicator.pastYears != 0)
-        row.getCell(startCell + 2).setCellValue(indicator.pastYears.toDouble())
-    row.createCell(startCell + 3)
+        row.getCell(startCell).setCellValue(indicator.pastYears.toDouble())
+    row.createCell(startCell + 1)
     if(indicator.currentYear != 0)
-        row.getCell(startCell + 3).setCellValue(indicator.currentYear.toDouble())
+        row.getCell(startCell + 1).setCellValue(indicator.currentYear.toDouble())
+
 }
 
 fun createTotalSumm(stat: List<StatForOutXLS>) : StatForOutXLS {

@@ -7,7 +7,7 @@ fun writeArticleTabOnMainSheet(wb: HSSFWorkbook) {
     val rangeRows = FIRST_GLOBAL_INDICATOR_ROW..(FIRST_GLOBAL_INDICATOR_ROW + totalArticleTabSize - 1)
     setStyleForIndicatorRow(wb, rangeRows, ARTICLE_COLUMN)
 
-    writeArticleTotalSumm(wb, statByArticle)
+    writeArticleTotalSumm(wb)
 }
 
 fun writeArticleIndicator(wb: HSSFWorkbook) {
@@ -53,7 +53,7 @@ fun createStatByArticle() : MutableList<StatForOutXLS> {
     return statByArticle
 }
 
-fun writeArticleTotalSumm(wb: HSSFWorkbook, statByArticle: MutableList<StatForOutXLS>) {
+fun writeArticleTotalSumm(wb: HSSFWorkbook) {
     val endRowIndex = FIRST_GLOBAL_INDICATOR_ROW + statByArticle.size + 5
     val totalSummRow = wb.getSheetAt(0).getRow(endRowIndex)
     statByArticle.removeAt(1)

@@ -13,7 +13,7 @@ fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
 fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(1)
     //Каждя служба по 2 колонки плюс общие цифры
-    val lastColumn = statByDepart.size * 2 + 3
+    val lastColumn = statByDepart.size * 2
     writeFirstTitle(wb, sheet, lastColumn)
     writeSecondTitle(wb, sheet, lastColumn)
     setColumnWidth(sheet, 0..lastColumn, DETAIL_COLUMN_WIDTH)
@@ -68,14 +68,14 @@ fun writeTabTitleOnDetailSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     sheet.addMergedRegion(CellRangeAddress(4, 5, 0, 0))
 
     for(col in 1..(statByDepart.size)) {
-        writeBlockTitle(sheet, style, (col * 2 - 1), statByDepart[col - 1].nameIndicator)
+        writeBlockTitle(sheet, (col * 2 - 1), statByDepart[col - 1].nameIndicator)
     }
     setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(4), style)
     setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(5), style)
 
 }
 
-fun writeBlockTitle(sheet: HSSFSheet, style: HSSFCellStyle, startColumn: Int, title: String) {
+fun writeBlockTitle(sheet: HSSFSheet, startColumn: Int, title: String) {
     val endColumn = startColumn + 1
     sheet.addMergedRegion(CellRangeAddress(4, 4, startColumn, endColumn))
     sheet.getRow(4) .createCell(startColumn).setCellValue(title)

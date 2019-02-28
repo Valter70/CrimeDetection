@@ -42,7 +42,7 @@ fun setFontForTabIndicator(font: Font) : Font {
 
 fun setFontForTotalSumm(font: Font) : Font {
     font.fontName = "Colibri"
-    font.fontHeightInPoints = 18
+    font.fontHeightInPoints = 16
     font.bold = true
     font.underline = Font.U_SINGLE
     return font

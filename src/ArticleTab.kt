@@ -2,7 +2,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
 fun writeArticleTabOnMainSheet(wb: HSSFWorkbook) {
     writeGravityIndicator(wb)
-    setStyleForIndicatorRow(wb, 5..6, ARTICLE_COLUMN)
+    setStyleForIndicatorRow(wb, 5..6, ARTICLE_COLUMN, 0)
     val startArticleRow = FIRST_GLOBAL_INDICATOR_ROW + 2
     writeArticleIndicator(wb, startArticleRow)
 
@@ -10,7 +10,7 @@ fun writeArticleTabOnMainSheet(wb: HSSFWorkbook) {
     val startRangRow = FIRST_GLOBAL_INDICATOR_ROW + 2
     val endRangeRow = startRangRow + totalArticleTabSize - 1
     val rangeRows = startRangRow..endRangeRow
-    setStyleForIndicatorRow(wb, rangeRows, ARTICLE_COLUMN)
+    setStyleForIndicatorRow(wb, rangeRows, ARTICLE_COLUMN, 0)
 
     writeArticleTotalSumm(wb)
 }

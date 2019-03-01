@@ -3,6 +3,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+data class Cell(
+    var row: Int,
+    var cell: Int
+)
+
 fun getArticleOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(ARTICLE_CELL).stringCellValue.substring(3)
 
 fun getDepartOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(DEPART_CELL).stringCellValue
@@ -81,4 +86,17 @@ fun createTotalSumm(stat: List<StatForOutXLS>) : StatForOutXLS {
     val past = stat.sumBy { it.pastYears }
     val cur = stat.sumBy { it.currentYear }
     return StatForOutXLS(name, past, cur)
+}
+
+fun setPrintSetup(wb: HSSFWorkbook) {
+    var ps = wb.getSheetAt(0).printSetup
+    wb.getSheetAt(0).autobreaks = true
+    ps.fitHeight = 1
+    ps.fitWidth = 1
+
+    ps = wb.getSheetAt(1).printSetup
+    wb.getSheetAt(0).autobreaks = true
+    ps.fitHeight = 1
+    ps.fitWidth = 1
+
 }

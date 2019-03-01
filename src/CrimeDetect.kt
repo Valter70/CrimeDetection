@@ -19,6 +19,8 @@ fun main(args: Array<String>) {
 
     writeTabOnDetailSheet(wbOut)
 
+    setPrintSetup(wbOut)
+
     wbOut.setActiveSheet(1)
 
     closeOutXLSFile(wbOut)

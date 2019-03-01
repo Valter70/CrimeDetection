@@ -36,7 +36,7 @@ fun setFontForTabTitle(font: Font, height: Short) : Font {
 
 fun setFontForTabIndicator(font: Font) : Font {
     font.fontName = "Colibri"
-    font.fontHeightInPoints = 18
+    font.fontHeightInPoints = 16
     return font
 }
 
@@ -77,12 +77,12 @@ fun setStyleForTotalSummCells(wb: HSSFWorkbook, rangeColumn: IntRange, row: HSSF
 
 }
 
-fun setStyleForIndicatorRow(wb: HSSFWorkbook, rangeRows: IntRange, rangeColumns: IntRange) {
+fun setStyleForIndicatorRow(wb: HSSFWorkbook, rangeRows: IntRange, rangeColumns: IntRange, sheet: Int) {
     val style = createStyleWithBorder(wb)
     style.setFont(setFontForTabIndicator(wb.createFont()))
 
     for(rowNum in rangeRows) {
-        val row = wb.getSheetAt(0).getRow(rowNum)
+        val row = wb.getSheetAt(sheet).getRow(rowNum)
         setStyleForTabTitle(rangeColumns, row, style)
     }
 

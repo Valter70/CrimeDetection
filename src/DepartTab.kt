@@ -61,9 +61,9 @@ fun writeDepartTotalSumm(wb: HSSFWorkbook) {
 
 fun setDepartIndicatorsStyle(wb: HSSFWorkbook) {
     var rangeRows = FIRST_GLOBAL_INDICATOR_ROW..(FIRST_GLOBAL_INDICATOR_ROW + 3)
-    setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN)
+    setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN, 0)
 
     rangeRows = (FIRST_GLOBAL_INDICATOR_ROW + 5)..(FIRST_GLOBAL_INDICATOR_ROW + statByDepart.size)
-    setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN)
+    setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN, 0)
 
 }

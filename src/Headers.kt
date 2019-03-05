@@ -12,7 +12,7 @@ fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
 
 fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
     val sheet = wb.getSheetAt(1)
-    //Каждя служба по 2 колонки плюс общие цифры
+    //Каждя служба по 2 колонки
     val lastColumn = statByDepart.size * 2
     writeFirstTitle(wb, sheet, lastColumn)
     writeSecondTitle(wb, sheet, lastColumn)
@@ -35,7 +35,7 @@ fun writeSecondTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
     sheet.addMergedRegion(CellRangeAddress(1, 1, 0, lastColumnTitle))
     val row = sheet.createRow(1)
     row.heightInPoints = 21F
-    writeCellTitle(row, "по службах Рівненського ВП за грудень ${CURRENT_YEAR}р.", style)
+    writeCellTitle(row, "по службах Рівненського ВП за ${CURRENT_MONTH} ${CURRENT_YEAR}р.", style)
 }
 
 fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {

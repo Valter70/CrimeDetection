@@ -2,6 +2,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.time.LocalDate
 
 data class Cell(
     var row: Int,
@@ -98,5 +99,23 @@ fun setPrintSetup(wb: HSSFWorkbook) {
     wb.getSheetAt(0).autobreaks = true
     ps.fitHeight = 1
     ps.fitWidth = 1
+
+}
+
+fun getStringOfMonth() : String =
+    when(LocalDate.now().monthValue) {
+        1 -> "січень"
+        2 -> "лютий"
+        3 -> "березень"
+        4 -> "квітень"
+        5 -> "травень"
+        6 -> "червень"
+        7 -> "липень"
+        8 -> "серпень"
+        9 -> "вересень"
+        10 -> "жовтень"
+        11 -> "листопад"
+        12 -> "грудень"
+        else -> throw IndexOutOfBoundsException("Невірний місяць")
 
 }

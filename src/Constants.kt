@@ -1,4 +1,7 @@
-const val CURRENT_YEAR = 2018
+import java.time.LocalDate
+
+val CURRENT_YEAR = LocalDate.now().year
+val CURRENT_MONTH = getStringOfMonth()
 const val FIRST_GLOBAL_INDICATOR_ROW = 5
 const val FIRST_DETAIL_INDICATOR_ROW = 7
 const val ARTICLE_CELL = 4

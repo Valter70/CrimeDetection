@@ -2,6 +2,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
 fun main(args: Array<String>) {
 
+    INPUT_XLS_FILE_NAME = args[0]
+    OUTPUT_XLS_FILE_NAME = args[1]
+
     val wbOut = HSSFWorkbook()
     val sheetGlobal = wbOut.createSheet("Загальна")
 

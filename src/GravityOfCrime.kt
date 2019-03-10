@@ -1,17 +1,17 @@
 // Тяжкость КП
 enum class GravityOfCrime(val statName: String) {
-    T1("НЕВЕЛИКОЇ ТЯЖКОСТІ"),
-    T2("СЕРЕДНЬОЇ ТЯЖКОСТІ"),
-    T3("ТЯЖКІ"),
-    T4("ОС. ТЯЖКІ")
+    T1("НЕВЕЛИКОЇ ТЯЖКОСТI"),
+    T2("СЕРЕДНЬОЇ ТЯЖКОСТI"),
+    T3("ТЯЖКИЙ"),
+    T4("ОС.ТЯЖКИЙ")
 }
 
 fun getCodeGravity(strGravity: String) =
     when(strGravity){
-        "НЕВЕЛИКОЇ ТЯЖКОСТІ" -> GravityOfCrime.T1
-        "СЕРЕДНЬОЇ ТЯЖКОСТІ" -> GravityOfCrime.T2
-        "ТЯЖКІ" -> GravityOfCrime.T3
-        "ОСОБЛИВО ТЯЖКІ" -> GravityOfCrime.T4
+        "НЕВЕЛИКОЇ ТЯЖКОСТI" -> GravityOfCrime.T1
+        "СЕРЕДНЬОЇ ТЯЖКОСТI" -> GravityOfCrime.T2
+        "ТЯЖКИЙ" -> GravityOfCrime.T3
+        "ОС.ТЯЖКИЙ" -> GravityOfCrime.T4
         else -> throw IndexOutOfBoundsException("Невірна назва тяжкості: $strGravity")
     }
 

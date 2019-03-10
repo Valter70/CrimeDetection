@@ -49,12 +49,16 @@ fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
     val wbStat = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
     val sheetStat = wbStat.getSheetAt(0)
 
-    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, GravityOfCrime.T1, true))
+    removeAllMergedRegions(wbStat)
 
+    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, GravityOfCrime.T1, true))
     var currentRecord = 5
     while(currentRecord <= sheetStat.lastRowNum) {
-        val crimeCase = createCrimeCase(sheetStat.getRow(currentRecord))
-        crimeList.add(crimeCase)
+        val firstNumberValue = sheetStat.getRow(currentRecord).getCell(0).numericCellValue
+        if(isCorrectNumber(firstNumberValue)) {
+            val crimeCase = createCrimeCase(sheetStat.getRow(currentRecord))
+            crimeList.add(crimeCase)
+        }
         currentRecord++
     }
 
@@ -62,6 +66,14 @@ fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
     wbStat.close()
     return crimeList
 }
+
+fun removeAllMergedRegions(wb: HSSFWorkbook) = with(wb.getSheetAt(0)) {
+    val numRegions = numMergedRegions
+    for(index in 0..numRegions)
+        removeMergedRegion(index)
+}
+
+fun isCorrectNumber(number: Double) = number != 0.0
 
 fun closeOutXLSFile(wb: HSSFWorkbook) {
     val fosE = FileOutputStream(OUTPUT_XLS_FILE_NAME)

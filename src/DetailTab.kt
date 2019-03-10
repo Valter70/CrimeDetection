@@ -12,9 +12,9 @@ fun writeTabOnDetailSheet(wb: HSSFWorkbook) {
     writeDetailIndicator(wb)
 
     val rangRow = FIRST_DETAIL_INDICATOR_ROW ..wb.getSheetAt(1).lastRowNum
-    val rangeColumn = 0..(statByDepart.size * 2 + 2)
+    val endColumn = wb.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW - 1).lastCellNum - 1
+    val rangeColumn = 0..endColumn
     setStyleForIndicatorRow(wb, rangRow, rangeColumn, 1)
-
 
 }
 

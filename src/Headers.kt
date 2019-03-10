@@ -35,7 +35,8 @@ fun writeSecondTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
     sheet.addMergedRegion(CellRangeAddress(1, 1, 0, lastColumnTitle))
     val row = sheet.createRow(1)
     row.heightInPoints = 21F
-    writeCellTitle(row, "по службах Рівненського ВП за ${CURRENT_MONTH} ${CURRENT_YEAR}р.", style)
+    val currentMonth = getStringOfMonth()
+    writeCellTitle(row, "по службах Рівненського ВП за ${currentMonth} ${CURRENT_YEAR}р.", style)
 }
 
 fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {

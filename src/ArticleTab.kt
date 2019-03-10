@@ -44,7 +44,7 @@ fun writeArticle185Indicator(wb: HSSFWorkbook, startIndex: Int) {
 }
 
 fun createStatByArticle() : MutableList<StatForOutXLS> {
-    val listOfArticle = crimeList.map { it.article.substringBefore(' ') }.toSet()
+    val listOfArticle = crimeList.map { it.article.substringBefore(' ') }.toSortedSet()
     val statByArticle: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
 
     for(rec in listOfArticle) {

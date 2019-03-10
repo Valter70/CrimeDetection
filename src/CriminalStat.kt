@@ -9,11 +9,19 @@ data class Cell(
     var cell: Int
 )
 
-fun getArticleOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(ARTICLE_CELL).stringCellValue.substring(3)
+fun getArticleOfCriminalStat(currentRow: HSSFRow) : String {
+    val articleCell = headerNames().indexOf("Квал.злоч.КК 2001")
+    return currentRow.getCell(articleCell).stringCellValue.substring(3)
+}
 
-fun getDepartOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(DEPART_CELL).stringCellValue
-
-fun getGravityOfCriminalStat(currentRow: HSSFRow) : String = currentRow.getCell(GRAVITY_CELL).stringCellValue
+fun getDepartOfCriminalStat(currentRow: HSSFRow) : String {
+    val departCell = headerNames().indexOf("17.Особа виявлена службою")
+    return currentRow.getCell(departCell).stringCellValue
+}
+fun getGravityOfCriminalStat(currentRow: HSSFRow) : String {
+    val gravityCell = headerNames().indexOf("Ф1 14.Квал.злоч.-тяжкiсть")
+    return currentRow.getCell(gravityCell).stringCellValue
+}
 
 fun getNumberOfCriminalStat(currentRow: HSSFRow) : String {
     var numKP = ""
@@ -117,5 +125,22 @@ fun getStringOfMonth() : String =
         11 -> "листопад"
         12 -> "грудень"
         else -> throw IndexOutOfBoundsException("Невірний місяць")
+}
 
+private fun headerNames() : List<String> {
+    val wb = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
+    var numRow = 3
+    val listHeader = mutableListOf("")
+    for(i in 0..(wb.getSheetAt(0).getRow(numRow).lastCellNum - 1)) {
+        val cellValue = wb.getSheetAt(0).getRow(numRow).getCell(i).stringCellValue
+        if(cellValue == "Форма2") {
+            numRow++
+            listHeader.add(wb.getSheetAt(0).getRow(numRow).getCell(i).stringCellValue)
+        }
+        else
+            listHeader.add(cellValue)
+    }
+    listHeader.removeAt(0)
+    wb.close()
+    return listHeader
 }

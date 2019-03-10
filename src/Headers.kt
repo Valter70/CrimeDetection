@@ -82,7 +82,7 @@ fun writeBlockTitle(sheet: HSSFSheet, startColumn: Int, title: String) {
     sheet.getRow(4) .createCell(endColumn)
 
     sheet.getRow(5).createCell(startColumn).setCellValue("мин.роки")
-    sheet.getRow(5).createCell(endColumn).setCellValue("2018")
+    sheet.getRow(5).createCell(endColumn).setCellValue(CURRENT_YEAR.toString())
 
 }
 

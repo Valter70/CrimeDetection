@@ -1,6 +1,6 @@
 class Cell {
-    val cell: Int
-    val row: Int
+    var cell: Int
+    var row: Int
 
     constructor(_row: Int, _cell: Int) {
         row = _row

@@ -68,8 +68,7 @@ fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
 }
 
 fun removeAllMergedRegions(wb: HSSFWorkbook) = with(wb.getSheetAt(0)) {
-    val numRegions = numMergedRegions
-    for(index in 0..numRegions)
+    for(index in 0..numMergedRegions)
         removeMergedRegion(index)
 }
 

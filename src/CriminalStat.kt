@@ -51,7 +51,7 @@ fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
 
     removeAllMergedRegions(wbStat)
 
-    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, GravityOfCrime.T1, true))
+    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, Gravity.T1, true))
     var currentRecord = 5
     while(currentRecord <= sheetStat.lastRowNum) {
         val firstNumberValue = sheetStat.getRow(currentRecord).getCell(0).numericCellValue

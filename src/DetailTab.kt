@@ -50,8 +50,8 @@ fun writeDetailGravity(wb: HSSFWorkbook) {
     var currentBlock = 2
     for(depat in statByDepart) {
         val depatCode = getCodeDepart(depat.nameIndicator)
-        val pastYear = crimeList.count { !it.isCurrentYear && it.depart == depatCode && it.gravity == GravityOfCrime.T3 }
-        val currentYear = crimeList.count { it.isCurrentYear && it.depart == depatCode && it.gravity == GravityOfCrime.T3 }
+        val pastYear = crimeList.count { !it.isCurrentYear && it.depart == depatCode && it.gravity == Gravity.T3 }
+        val currentYear = crimeList.count { it.isCurrentYear && it.depart == depatCode && it.gravity == Gravity.T3 }
         writeYearIndicatorToTab(row, (currentBlock * 2 - 1), StatForOutXLS("", pastYear, currentYear))
         currentBlock++
     }

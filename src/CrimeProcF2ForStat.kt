@@ -3,7 +3,7 @@ data class CrimeCaseF2ForStat(
     val number: String,
     val article: String,
     val depart: Department,
-    val gravity: GravityOfCrime,
+    val gravity: Gravity,
     val isCurrentYear: Boolean = number.substring(1, 5).toInt() == CURRENT_YEAR) {
 
     override fun toString() =

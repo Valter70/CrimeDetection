@@ -1,5 +1,5 @@
 // Тяжкость КП
-enum class GravityOfCrime(val statName: String) {
+enum class Gravity(val statName: String) {
     T1("НЕВЕЛИКОЇ ТЯЖКОСТI"),
     T2("СЕРЕДНЬОЇ ТЯЖКОСТI"),
     T3("ТЯЖКИЙ"),
@@ -8,16 +8,16 @@ enum class GravityOfCrime(val statName: String) {
 
 fun getCodeGravity(strGravity: String) =
     when(strGravity){
-        "НЕВЕЛИКОЇ ТЯЖКОСТI" -> GravityOfCrime.T1
-        "СЕРЕДНЬОЇ ТЯЖКОСТI" -> GravityOfCrime.T2
-        "ТЯЖКИЙ" -> GravityOfCrime.T3
-        "ОС.ТЯЖКИЙ" -> GravityOfCrime.T4
+        "НЕВЕЛИКОЇ ТЯЖКОСТI" -> Gravity.T1
+        "СЕРЕДНЬОЇ ТЯЖКОСТI" -> Gravity.T2
+        "ТЯЖКИЙ" -> Gravity.T3
+        "ОС.ТЯЖКИЙ" -> Gravity.T4
         else -> throw IndexOutOfBoundsException("Невірна назва тяжкості: $strGravity")
     }
 
 fun createStatByGravity() : MutableList<StatForOutXLS> {
     val statByGravity: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
-    for(rec in GravityOfCrime.values()) {
+    for(rec in Gravity.values()) {
         val gravity = rec.statName.toLowerCase()
         val currentYear = crimeList.count { it.isCurrentYear && it.gravity == rec }
         val pastYear = crimeList.count { !it.isCurrentYear && it.gravity == rec }

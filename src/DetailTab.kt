@@ -102,7 +102,7 @@ fun writeDetailArticle185Indicator(wb: HSSFWorkbook, startCell: Cell, statBy185B
     }
 }
 
-fun createStatByBlock(crimeBlock: List<CrimeCaseF2ForStat>) : List<StatForOutXLS> {
+fun createStatByBlock(crimeBlock: List<CriminalCase>) : List<StatForOutXLS> {
     val listOfArticle = crimeBlock.map { it.article.substringBefore(' ') }.toSet()
     val statByArticle: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
 
@@ -116,7 +116,7 @@ fun createStatByBlock(crimeBlock: List<CrimeCaseF2ForStat>) : List<StatForOutXLS
 
 }
 
-fun createStatBy185Block(crimeBlock: List<CrimeCaseF2ForStat>) : List<StatForOutXLS> {
+fun createStatBy185Block(crimeBlock: List<CriminalCase>) : List<StatForOutXLS> {
     val statBy185Block: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
     for(rec in 1..5) {
         val part185 = "Ч.$rec"

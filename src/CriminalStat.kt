@@ -4,59 +4,18 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.LocalDate
 
-fun getArticleOfCriminalStat(currentRow: HSSFRow) : String {
-    val articleCell = headerNames().indexOf("Квал.злоч.КК 2001")
-    return currentRow.getCell(articleCell).stringCellValue.substring(3)
-}
-
-fun getDepartOfCriminalStat(currentRow: HSSFRow) : String {
-    val departCell = headerNames().indexOf("17.Особа виявлена службою")
-    return currentRow.getCell(departCell).stringCellValue
-}
-fun getGravityOfCriminalStat(currentRow: HSSFRow) : String {
-    val gravityCell = headerNames().indexOf("Ф1 14.Квал.злоч.-тяжкiсть")
-    return currentRow.getCell(gravityCell).stringCellValue
-}
-
-fun getNumberOfCriminalStat(currentRow: HSSFRow) : String {
-    var numKP = ""
-    for(i in 0..2) {
-        val partOfNumber = currentRow.getCell(i).numericCellValue.toInt().toString()
-        numKP += partOfNumber
-    }
-    numKP += createFullNumber(currentRow.getCell(3).numericCellValue.toInt().toString())
-    return numKP
-}
-
-fun createFullNumber(number: String) : String {
-    var result = ""
-    for(i in 1..(7 - number.length))
-        result += "0"
-    return result + number
-}
-
-
-fun createCrimeCase(rowCP: HSSFRow) : CrimeCaseF2ForStat {
-    val number = getNumberOfCriminalStat(rowCP)
-    val article = getArticleOfCriminalStat(rowCP)
-    val depart = getCodeDepart(getDepartOfCriminalStat(rowCP))
-    val gravity = getCodeGravity(getGravityOfCriminalStat(rowCP))
-
-    return CrimeCaseF2ForStat(number, article, depart, gravity)
-}
-
-fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
+fun createCrimeListFromXLS() : List<CriminalCase> {
     val wbStat = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
     val sheetStat = wbStat.getSheetAt(0)
 
     removeAllMergedRegions(wbStat)
 
-    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, Gravity.T1, true))
+    val crimeList: MutableList<CriminalCase> = mutableListOf(CriminalCase(5))
     var currentRecord = 5
     while(currentRecord <= sheetStat.lastRowNum) {
         val firstNumberValue = sheetStat.getRow(currentRecord).getCell(0).numericCellValue
         if(isCorrectNumber(firstNumberValue)) {
-            val crimeCase = createCrimeCase(sheetStat.getRow(currentRecord))
+            val crimeCase = CriminalCase(currentRecord)
             crimeList.add(crimeCase)
         }
         currentRecord++
@@ -151,3 +110,4 @@ private fun headerNames() : List<String> {
     wb.close()
     return listHeader
 }
+

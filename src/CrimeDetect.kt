@@ -10,8 +10,7 @@ fun main(args: Array<String>) {
 
     println("Формування статистики по службах...")
     writeHeaderOnMainSheet(wbOut)
-    var endOfRange = FIRST_GLOBAL_INDICATOR_ROW + statByArticle.size + statByArticle185.size + statByGravity.size
-    setRowHeightOnMainSheet(sheetGlobal, FIRST_GLOBAL_INDICATOR_ROW..endOfRange)
+    GlobalRow(wbOut).createAllRowOnSheet()
     writeDepartTabOnMainSheet(wbOut)
 
     println("Формування статистики по статтях...")
@@ -21,8 +20,7 @@ fun main(args: Array<String>) {
     wbOut.createSheet("Детальна")
     statByDepart.add(0, createTotalSumm(statByDepart))
     writeHeaderOnDetailSheet(wbOut)
-    endOfRange = FIRST_DETAIL_INDICATOR_ROW + statByArticle.size + statByArticle185.size
-    setRowHeightOnMainSheet(sheetDetail, FIRST_DETAIL_INDICATOR_ROW..endOfRange)
+    DetailRow(wbOut).createAllRowOnSheet()
     writeTabOnDetailSheet(wbOut)
 
     println("Визначення параметрів документа для друку...")

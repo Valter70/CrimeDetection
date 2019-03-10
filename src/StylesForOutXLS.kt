@@ -64,17 +64,10 @@ fun createStyleWithBorder(wb: HSSFWorkbook) : HSSFCellStyle {
     return  style
 }
 
-fun setRowHeightOnMainSheet(sheet: HSSFSheet, range: IntRange) {
-    for(row in range) {
-        sheet.createRow(row).heightInPoints = 26F
-    }
-}
-
 fun setStyleForTotalSummCells(wb: HSSFWorkbook, rangeColumn: IntRange, row: HSSFRow) {
     val style = createStyleWithBorder(wb)
     style.setFont(setFontForTotalSumm(wb.createFont()))
     setStyleForTabTitle(rangeColumn, row, style)
-
 }
 
 fun setStyleForIndicatorRow(wb: HSSFWorkbook, rangeRows: IntRange, rangeColumns: IntRange, sheet: Int) {
@@ -85,5 +78,10 @@ fun setStyleForIndicatorRow(wb: HSSFWorkbook, rangeRows: IntRange, rangeColumns:
         val row = wb.getSheetAt(sheet).getRow(rowNum)
         setStyleForTabTitle(rangeColumns, row, style)
     }
+}
 
+fun createRowWithHeight(sheet: HSSFSheet, range: IntRange) {
+    for(row in range) {
+        sheet.createRow(row).heightInPoints = 26F
+    }
 }

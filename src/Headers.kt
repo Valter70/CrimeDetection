@@ -73,6 +73,19 @@ fun writeTabTitleOnDetailSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(4), style)
     setStyleForTabTitle(0..(statByDepart.size * 2), sheet.getRow(5), style)
 
+    writeGUNPHeader(sheet, style)
+}
+
+fun writeGUNPHeader(sheet: HSSFSheet, style: HSSFCellStyle) {
+    sheet.createRow(3)
+    val firstGUNPCol = 11
+    val lastGUNPCol = firstGUNPCol + (statByDepart.size - 5) * 2 - 1
+    for(index in firstGUNPCol..lastGUNPCol)
+        sheet.getRow(3).createCell(index)
+    sheet.getRow(3).getCell(firstGUNPCol).setCellValue("ГУНП")
+    sheet.addMergedRegion(CellRangeAddress(3, 3, firstGUNPCol, lastGUNPCol))
+    setStyleForTabTitle(firstGUNPCol..lastGUNPCol, sheet.getRow(3), style)
+
 }
 
 fun writeBlockTitle(sheet: HSSFSheet, startColumn: Int, title: String) {

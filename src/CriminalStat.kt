@@ -54,16 +54,16 @@ fun createCrimeListFromXLS() : List<CrimeCaseF2ForStat> {
     val wbStat = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
     val sheetStat = wbStat.getSheetAt(0)
 
-    val crimeCaseFirst = createCrimeCase(sheetStat.getRow(2))
-    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(crimeCaseFirst)
+    val crimeList: MutableList<CrimeCaseF2ForStat> = mutableListOf(CrimeCaseF2ForStat("", "", Department.VKP, GravityOfCrime.T1, true))
 
-    var currentRecord = 3
+    var currentRecord = 5
     while(currentRecord <= sheetStat.lastRowNum) {
         val crimeCase = createCrimeCase(sheetStat.getRow(currentRecord))
         crimeList.add(crimeCase)
         currentRecord++
     }
 
+    crimeList.removeAt(0)
     wbStat.close()
     return crimeList
 }
@@ -130,12 +130,13 @@ fun getStringOfMonth() : String =
 private fun headerNames() : List<String> {
     val wb = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
     var numRow = 3
+    val sheet = wb.getSheetAt(0)
     val listHeader = mutableListOf("")
-    for(i in 0..(wb.getSheetAt(0).getRow(numRow).lastCellNum - 1)) {
-        val cellValue = wb.getSheetAt(0).getRow(numRow).getCell(i).stringCellValue
+    for(i in 0..(sheet.getRow(numRow).lastCellNum - 1)) {
+        val cellValue = sheet.getRow(numRow).getCell(i).stringCellValue
         if(cellValue == "Форма2") {
             numRow++
-            listHeader.add(wb.getSheetAt(0).getRow(numRow).getCell(i).stringCellValue)
+            listHeader.add(sheet.getRow(numRow).getCell(i).stringCellValue)
         }
         else
             listHeader.add(cellValue)

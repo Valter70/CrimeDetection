@@ -4,11 +4,6 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.LocalDate
 
-data class Cell(
-    var row: Int,
-    var cell: Int
-)
-
 fun getArticleOfCriminalStat(currentRow: HSSFRow) : String {
     val articleCell = headerNames().indexOf("Квал.злоч.КК 2001")
     return currentRow.getCell(articleCell).stringCellValue.substring(3)

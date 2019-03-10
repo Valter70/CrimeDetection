@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
     OUTPUT_XLS_FILE_NAME = args[1]
 
     val wbOut = HSSFWorkbook()
-    val sheetGlobal = wbOut.createSheet("Загальна")
+    wbOut.createSheet("Загальна")
 
     println("Формування статистики по службах...")
     writeHeaderOnMainSheet(wbOut)
@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     writeArticleTabOnMainSheet(wbOut)
 
     println("Формування статистики служб по статтях...")
-    val sheetDetail = wbOut.createSheet("Детальна")
+    wbOut.createSheet("Детальна")
     statByDepart.add(0, createTotalSumm(statByDepart))
     writeHeaderOnDetailSheet(wbOut)
     endOfRange = FIRST_DETAIL_INDICATOR_ROW + statByArticle.size + statByArticle185.size

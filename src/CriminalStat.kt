@@ -91,23 +91,3 @@ fun getStringOfMonth() : String =
         12 -> "грудень"
         else -> throw IndexOutOfBoundsException("Невірний місяць")
 }
-
-private fun headerNames() : List<String> {
-    val wb = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
-    var numRow = 3
-    val sheet = wb.getSheetAt(0)
-    val listHeader = mutableListOf("")
-    for(i in 0..(sheet.getRow(numRow).lastCellNum - 1)) {
-        val cellValue = sheet.getRow(numRow).getCell(i).stringCellValue
-        if(cellValue == "Форма2") {
-            numRow++
-            listHeader.add(sheet.getRow(numRow).getCell(i).stringCellValue)
-        }
-        else
-            listHeader.add(cellValue)
-    }
-    listHeader.removeAt(0)
-    wb.close()
-    return listHeader
-}
-

@@ -2,44 +2,43 @@ import org.apache.poi.hssf.usermodel.*
 import org.apache.poi.ss.util.CellRangeAddress
 
 
-fun writeHeaderOnMainSheet(wb: HSSFWorkbook) {
-    val sheet = wb.getSheetAt(0)
-    writeFirstTitle(wb, sheet, 8)
-    writeSecondTitle(wb, sheet, 8)
+fun writeHeaderOnMainSheet() {
+    val sheet = WB_OUT.getSheetAt(0)
+    writeFirstTitle(sheet, 8)
+    writeSecondTitle(sheet, 8)
     setColumnWidth(sheet, 0..8, GLOBAL_COLUMN_WIDTH)
-    writeTabTitleOnMainSheet(wb, sheet)
+    writeTabTitleOnMainSheet(sheet)
 }
 
-fun writeHeaderOnDetailSheet(wb: HSSFWorkbook) {
-    val sheet = wb.getSheetAt(1)
+fun writeHeaderOnDetailSheet() {
+    val sheet = WB_OUT.getSheetAt(1)
     //Каждя служба по 2 колонки
     val lastColumn = statByDepart.size * 2
-    writeFirstTitle(wb, sheet, lastColumn)
-    writeSecondTitle(wb, sheet, lastColumn)
+    writeFirstTitle(sheet, lastColumn)
+    writeSecondTitle(sheet, lastColumn)
     setColumnWidth(sheet, 0..lastColumn, DETAIL_COLUMN_WIDTH)
-    writeTabTitleOnDetailSheet(wb, sheet)
+    writeTabTitleOnDetailSheet(sheet)
 }
 
-fun writeFirstTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
-    val style = createStyleForTitle(wb)
-    style.setFont(setFontForFirstTitle(wb.createFont()))
+fun writeFirstTitle(sheet: HSSFSheet, lastColumnTitle: Int) {
+    val style = createStyleForTitle()
+    style.setFont(setFontForFirstTitle(WB_OUT.createFont()))
     sheet.addMergedRegion(CellRangeAddress(0, 0, 0, lastColumnTitle))
     val row = sheet.createRow(0)
     row.heightInPoints = 31.5F
     writeCellTitle(row, "ПОВІДОМЛЕННЯ ПРО ПІДОЗРУ", style)
 }
 
-fun writeSecondTitle(wb: HSSFWorkbook, sheet: HSSFSheet, lastColumnTitle: Int) {
-    val style = createStyleForTitle(wb)
-    style.setFont(setFontForSecondTitle(wb.createFont()))
+fun writeSecondTitle(sheet: HSSFSheet, lastColumnTitle: Int) {
+    val style = createStyleForTitle()
+    style.setFont(setFontForSecondTitle(WB_OUT.createFont()))
     sheet.addMergedRegion(CellRangeAddress(1, 1, 0, lastColumnTitle))
     val row = sheet.createRow(1)
     row.heightInPoints = 21F
-    val currentMonth = getStringOfMonth()
-    writeCellTitle(row, "по службах Рівненського ВП за ${currentMonth} ${CURRENT_YEAR}р.", style)
+    writeCellTitle(row, "по службах Рівненського ВП за ${getStringOfMonth()} ${CURRENT_YEAR}р.", style)
 }
 
-fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
+fun writeTabTitleOnMainSheet(sheet: HSSFSheet) {
 
     val row = sheet.createRow(4)
     row.heightInPoints = 26F
@@ -47,8 +46,8 @@ fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     row.createCell(1).setCellValue("Всього")
     row.createCell(2).setCellValue("мин.роки")
     row.createCell(3).setCellValue(CURRENT_YEAR.toString())
-    val style = createStyleWithBorder(wb)
-    style.setFont(setFontForTabTitle(wb.createFont(), 18))
+    val style = createStyleWithBorder()
+    style.setFont(setFontForTabTitle(WB_OUT.createFont(), 18))
     setStyleForTabTitle(0..3, row, style)
 
     row.createCell(5).setCellValue("Стаття")
@@ -58,11 +57,11 @@ fun writeTabTitleOnMainSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
     setStyleForTabTitle(5..8, row, style)
 }
 
-fun writeTabTitleOnDetailSheet(wb: HSSFWorkbook, sheet: HSSFSheet) {
-    wb.getSheetAt(1).createRow(4)
-    wb.getSheetAt(1).createRow(5)
-    val style = createStyleWithBorder(wb)
-    style.setFont(setFontForTabTitle(wb.createFont(), 16))
+fun writeTabTitleOnDetailSheet(sheet: HSSFSheet) {
+    WB_OUT.getSheetAt(1).createRow(4)
+    WB_OUT.getSheetAt(1).createRow(5)
+    val style = createStyleWithBorder()
+    style.setFont(setFontForTabTitle(WB_OUT.createFont(), 16))
 
     sheet.getRow(4).createCell(0)
     sheet.getRow(5).createCell(0)

@@ -8,7 +8,7 @@ fun writeArticleTabOnMainSheet() {
     val startRangRow = FIRST_GLOBAL_INDICATOR_ROW
     val endRangeRow = startRangRow + totalArticleTabSize - 1
     val rangeRows = startRangRow..endRangeRow
-    setStyleForIndicatorRow(WB_OUT, rangeRows, ARTICLE_COLUMN, 0)
+    setStyleForIndicatorRow(rangeRows, ARTICLE_COLUMN, 0)
 
     writeArticleTotalSumm()
 }
@@ -60,7 +60,7 @@ fun writeArticleTotalSumm() {
     val totalSummRow = WB_OUT.getSheetAt(0).getRow(endRowIndex)
     val totalSumm = createTotalSumm(statByArticle)
     writeIndicatorToTab(totalSummRow, ARTICLE_COLUMN.first, totalSumm)
-    setStyleForTotalSummCells(WB_OUT, ARTICLE_COLUMN, totalSummRow)
+    setStyleForTotalSummCells(ARTICLE_COLUMN, totalSummRow)
 
 }
 

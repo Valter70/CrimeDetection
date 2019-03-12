@@ -5,7 +5,7 @@ fun writeTabOnDetailSheet() {
     val totalSummRow = WB_OUT.getSheetAt(1).createRow(6)
     createAllDetailCells()
     writeDetailTotalSumm(totalSummRow)
-    setStyleForTotalSummCells(WB_OUT, 0..(statByDepart.size * 2), totalSummRow)
+    setStyleForTotalSummCells(0..(statByDepart.size * 2), totalSummRow)
     writeDetailArticleName()
     writeDetailGravity()
     writeDetailIndicator()
@@ -13,7 +13,7 @@ fun writeTabOnDetailSheet() {
     val rangRow = FIRST_DETAIL_INDICATOR_ROW ..WB_OUT.getSheetAt(1).lastRowNum
     val endColumn = WB_OUT.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW - 1).lastCellNum - 1
     val rangeColumn = 0..endColumn
-    setStyleForIndicatorRow(WB_OUT, rangRow, rangeColumn, 1)
+    setStyleForIndicatorRow(rangRow, rangeColumn, 1)
 
 }
 

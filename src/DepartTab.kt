@@ -23,7 +23,7 @@ fun writeVPIndicators() {
 fun writeGUNPTitle() {
     val sheet = WB_OUT.getSheetAt(0)
     sheet.addMergedRegion(CellRangeAddress(9, 9, 0, 3))
-    val style = createStyleForTitle(WB_OUT)
+    val style = createStyleForTitle()
     style.setFont(setFontForTabTitle(WB_OUT.createFont(), 18))
     writeCellTitle(sheet.getRow(9), "ГУНП", style)
 }
@@ -55,15 +55,15 @@ fun writeDepartTotalSumm() {
 
     writeIndicatorToTab(totalSummRow, DEPART_COLUMN.first, totalSumm)
 
-    setStyleForTotalSummCells(WB_OUT, DEPART_COLUMN, totalSummRow)
+    setStyleForTotalSummCells(DEPART_COLUMN, totalSummRow)
 
 }
 
 fun setDepartIndicatorsStyle() {
     var rangeRows = FIRST_GLOBAL_INDICATOR_ROW..(FIRST_GLOBAL_INDICATOR_ROW + 3)
-    setStyleForIndicatorRow(WB_OUT, rangeRows, DEPART_COLUMN, 0)
+    setStyleForIndicatorRow(rangeRows, DEPART_COLUMN, 0)
 
     rangeRows = (FIRST_GLOBAL_INDICATOR_ROW + 5)..(FIRST_GLOBAL_INDICATOR_ROW + statByDepart.size)
-    setStyleForIndicatorRow(WB_OUT, rangeRows, DEPART_COLUMN, 0)
+    setStyleForIndicatorRow(rangeRows, DEPART_COLUMN, 0)
 
 }

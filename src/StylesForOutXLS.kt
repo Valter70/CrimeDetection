@@ -48,15 +48,15 @@ fun setFontForTotalSumm(font: Font) : Font {
     return font
 }
 
-fun createStyleForTitle(wb: HSSFWorkbook) : HSSFCellStyle {
-    val style = wb.createCellStyle()
+fun createStyleForTitle() : HSSFCellStyle {
+    val style = WB_OUT.createCellStyle()
     style.alignment = HorizontalAlignment.CENTER
     style.verticalAlignment = VerticalAlignment.CENTER
     return style
 }
 
-fun createStyleWithBorder(wb: HSSFWorkbook) : HSSFCellStyle {
-    val style = createStyleForTitle(wb)
+fun createStyleWithBorder() : HSSFCellStyle {
+    val style = createStyleForTitle()
     style.borderTop = BorderStyle.THIN
     style.borderBottom = BorderStyle.THIN
     style.borderLeft = BorderStyle.THIN
@@ -64,18 +64,18 @@ fun createStyleWithBorder(wb: HSSFWorkbook) : HSSFCellStyle {
     return  style
 }
 
-fun setStyleForTotalSummCells(wb: HSSFWorkbook, rangeColumn: IntRange, row: HSSFRow) {
-    val style = createStyleWithBorder(wb)
-    style.setFont(setFontForTotalSumm(wb.createFont()))
+fun setStyleForTotalSummCells(rangeColumn: IntRange, row: HSSFRow) {
+    val style = createStyleWithBorder()
+    style.setFont(setFontForTotalSumm(WB_OUT.createFont()))
     setStyleForTabTitle(rangeColumn, row, style)
 }
 
-fun setStyleForIndicatorRow(wb: HSSFWorkbook, rangeRows: IntRange, rangeColumns: IntRange, sheet: Int) {
-    val style = createStyleWithBorder(wb)
-    style.setFont(setFontForTabIndicator(wb.createFont()))
+fun setStyleForIndicatorRow(rangeRows: IntRange, rangeColumns: IntRange, sheet: Int) {
+    val style = createStyleWithBorder()
+    style.setFont(setFontForTabIndicator(WB_OUT.createFont()))
 
     for(rowNum in rangeRows) {
-        val row = wb.getSheetAt(sheet).getRow(rowNum)
+        val row = WB_OUT.getSheetAt(sheet).getRow(rowNum)
         setStyleForTabTitle(rangeColumns, row, style)
     }
 }

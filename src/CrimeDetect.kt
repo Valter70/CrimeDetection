@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
     println("Формування статистики по службах...")
     writeHeaderOnMainSheet(wbOut)
     GlobalRow(wbOut).createAllRowOnSheet()
-    writeDepartTabOnMainSheet(wbOut)
+    writeDepartTabOnMainSheet()
 
     println("Формування статистики по статтях...")
     writeArticleTabOnMainSheet(wbOut)

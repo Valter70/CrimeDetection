@@ -1,18 +1,23 @@
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.util.CellRangeAddress
+import java.io.FileInputStream
 
-fun writeDepartTabOnMainSheet(wb: HSSFWorkbook) {
-    writeVPIndicators(wb)
-    writeGUNPTitle(wb)
+val wb = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
+
+fun writeDepartTabOnMainSheet() {
+    writeVPIndicators()
+    writeGUNPTitle()
 
     statByDepart.removeIf { it.total == 0 && it.nameIndicator in DEPART_GUNP }
 
-    writeGUNPIndicators(wb)
-    setDepartIndicatorsStyle(wb)
-    writeDepartTotalSumm(wb)
+    writeGUNPIndicators()
+    setDepartIndicatorsStyle()
+    writeDepartTotalSumm()
+
+    wb.close()
 }
 
-fun writeVPIndicators(wb: HSSFWorkbook) {
+fun writeVPIndicators() {
     val sheet = wb.getSheetAt(0)
     for(index in 0..3) {
         val row = sheet.getRow(FIRST_GLOBAL_INDICATOR_ROW + index)
@@ -20,7 +25,7 @@ fun writeVPIndicators(wb: HSSFWorkbook) {
     }
 }
 
-fun writeGUNPTitle(wb: HSSFWorkbook) {
+fun writeGUNPTitle() {
     val sheet = wb.getSheetAt(0)
     sheet.addMergedRegion(CellRangeAddress(9, 9, 0, 3))
     val style = createStyleForTitle(wb)
@@ -28,7 +33,7 @@ fun writeGUNPTitle(wb: HSSFWorkbook) {
     writeCellTitle(sheet.getRow(9), "ГУНП", style)
 }
 
-fun writeGUNPIndicators(wb: HSSFWorkbook) {
+fun writeGUNPIndicators() {
     val sheet = wb.getSheetAt(0)
     for(index in 4..(statByDepart.size - 1)) {
         val row = sheet.getRow(index + 6)
@@ -48,7 +53,7 @@ fun createStatByDepart() : MutableList<StatForOutXLS> {
     return  statByDepart
 }
 
-fun writeDepartTotalSumm(wb: HSSFWorkbook) {
+fun writeDepartTotalSumm() {
     val endRowIndex = FIRST_GLOBAL_INDICATOR_ROW + statByDepart.size + 1
     val totalSummRow = wb.getSheetAt(0).getRow(endRowIndex)
     val totalSumm = createTotalSumm(statByDepart)
@@ -59,7 +64,7 @@ fun writeDepartTotalSumm(wb: HSSFWorkbook) {
 
 }
 
-fun setDepartIndicatorsStyle(wb: HSSFWorkbook) {
+fun setDepartIndicatorsStyle() {
     var rangeRows = FIRST_GLOBAL_INDICATOR_ROW..(FIRST_GLOBAL_INDICATOR_ROW + 3)
     setStyleForIndicatorRow(wb, rangeRows, DEPART_COLUMN, 0)
 

@@ -1,3 +1,4 @@
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.time.LocalDate
 
 const val FIRST_GLOBAL_INDICATOR_ROW = 5
@@ -9,4 +10,4 @@ var OUTPUT_XLS_FILE_NAME = ""
 val DEPART_COLUMN = 0..3
 val ARTICLE_COLUMN = 5..8
 val CURRENT_YEAR = LocalDate.now().year
-
+val WB_OUT = HSSFWorkbook()

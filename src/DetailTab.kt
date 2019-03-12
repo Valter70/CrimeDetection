@@ -1,20 +1,19 @@
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFSheet
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
-fun writeTabOnDetailSheet(wb: HSSFWorkbook) {
-    val totalSummRow = wb.getSheetAt(1).createRow(6)
-    createAllDetailCells(wb)
+fun writeTabOnDetailSheet() {
+    val totalSummRow = WB_OUT.getSheetAt(1).createRow(6)
+    createAllDetailCells()
     writeDetailTotalSumm(totalSummRow)
-    setStyleForTotalSummCells(wb, 0..(statByDepart.size * 2), totalSummRow)
-    writeDetailArticleName(wb)
-    writeDetailGravity(wb)
-    writeDetailIndicator(wb)
+    setStyleForTotalSummCells(WB_OUT, 0..(statByDepart.size * 2), totalSummRow)
+    writeDetailArticleName()
+    writeDetailGravity()
+    writeDetailIndicator()
 
-    val rangRow = FIRST_DETAIL_INDICATOR_ROW ..wb.getSheetAt(1).lastRowNum
-    val endColumn = wb.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW - 1).lastCellNum - 1
+    val rangRow = FIRST_DETAIL_INDICATOR_ROW ..WB_OUT.getSheetAt(1).lastRowNum
+    val endColumn = WB_OUT.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW - 1).lastCellNum - 1
     val rangeColumn = 0..endColumn
-    setStyleForIndicatorRow(wb, rangRow, rangeColumn, 1)
+    setStyleForIndicatorRow(WB_OUT, rangRow, rangeColumn, 1)
 
 }
 
@@ -26,9 +25,9 @@ fun writeDetailTotalSumm(totalSummRow: HSSFRow) {
     }
 }
 
-fun writeDetailArticleName(wb: HSSFWorkbook) {
+fun writeDetailArticleName() {
     var part185 = 0
-    val sheet = wb.getSheetAt(1)
+    val sheet = WB_OUT.getSheetAt(1)
     sheet.getRow(FIRST_DETAIL_INDICATOR_ROW).createCell(0).setCellValue("тяжкі")
     for(index in 1..(statByArticle.size)) {
         val row = sheet.getRow(FIRST_DETAIL_INDICATOR_ROW + index + part185)
@@ -41,8 +40,8 @@ fun writeDetailArticleName(wb: HSSFWorkbook) {
     }
 }
 
-fun writeDetailGravity(wb: HSSFWorkbook) {
-    val row = wb.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW)
+fun writeDetailGravity() {
+    val row = WB_OUT.getSheetAt(1).getRow(FIRST_DETAIL_INDICATOR_ROW)
     row.createCell(1).setCellValue(statByGravity[2].pastYears.toDouble())
     row.createCell(2).setCellValue(statByGravity[2].currentYear.toDouble())
 
@@ -65,9 +64,9 @@ fun writeDetailArticle185Title(sheet: HSSFSheet, startRow: Int) {
     }
 }
 
-fun writeDetailIndicator(wb: HSSFWorkbook) {
+fun writeDetailIndicator() {
     val startCell = Cell(FIRST_DETAIL_INDICATOR_ROW + 1, 1)
-    writeDetailDepartIndicator(wb, startCell, statByArticle, statByArticle185)
+    writeDetailDepartIndicator(startCell, statByArticle, statByArticle185)
 
     var tabBlock = 2
     for(depat in statByDepart) {
@@ -75,29 +74,29 @@ fun writeDetailIndicator(wb: HSSFWorkbook) {
         val statByBlock = createStatByBlock(crimeBlock)
         val statBy185Block = createStatBy185Block(crimeBlock)
         startCell.cell = tabBlock * 2 - 1
-        writeDetailDepartIndicator(wb, startCell, statByBlock, statBy185Block)
+        writeDetailDepartIndicator(startCell, statByBlock, statBy185Block)
         tabBlock++
     }
 
 }
 
-fun writeDetailDepartIndicator(wb: HSSFWorkbook, startCell: Cell, statByBlock: List<StatForOutXLS>, statBy185Block: List<StatForOutXLS>) {
+fun writeDetailDepartIndicator(startCell: Cell, statByBlock: List<StatForOutXLS>, statBy185Block: List<StatForOutXLS>) {
     val setOfArticle = statByArticle.map { it.nameIndicator.substringAfter('.') }.toSet()
     for(index in 0..(statByBlock.size - 1)) {
         val articleName = statByBlock[index].nameIndicator.substringAfter('.')
         val rowIndex = getArticleIndex(setOfArticle, articleName) + 8
-        val row = wb.getSheetAt(1).getRow(rowIndex)
+        val row = WB_OUT.getSheetAt(1).getRow(rowIndex)
         writeYearIndicatorToTab(row, startCell.cell, statByBlock[index])
         if(articleName == "185") {
             startCell.row = rowIndex + 1
-            writeDetailArticle185Indicator(wb, startCell, statBy185Block)
+            writeDetailArticle185Indicator(startCell, statBy185Block)
         }
     }
 }
 
-fun writeDetailArticle185Indicator(wb: HSSFWorkbook, startCell: Cell, statBy185Block: List<StatForOutXLS>) {
+fun writeDetailArticle185Indicator(startCell: Cell, statBy185Block: List<StatForOutXLS>) {
     for(index in 0..(statByArticle185.size - 1)) {
-        val row = wb.getSheetAt(1).getRow(startCell.row + index)
+        val row = WB_OUT.getSheetAt(1).getRow(startCell.row + index)
         writeYearIndicatorToTab(row, startCell.cell, statBy185Block[index])
     }
 }
@@ -137,11 +136,11 @@ fun getArticleIndex(setOfArticle: Set<String>, article: String) : Int {
     return result
 }
 
-fun createAllDetailCells(wb: HSSFWorkbook) {
+fun createAllDetailCells() {
     val lasrColumn = statByDepart.size * 2 + 2
-    val lastRow = wb.getSheetAt(1).lastRowNum
+    val lastRow = WB_OUT.getSheetAt(1).lastRowNum
     for(index in 7..lastRow) {
-        createRowCells(wb.getSheetAt(1).getRow(index), lasrColumn)
+        createRowCells(WB_OUT.getSheetAt(1).getRow(index), lasrColumn)
     }
 }
 

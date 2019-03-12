@@ -1,43 +1,42 @@
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
-fun writeArticleTabOnMainSheet(wb: HSSFWorkbook) {
-    writeGravityIndicator(wb)
+fun writeArticleTabOnMainSheet() {
+    writeGravityIndicator()
     val startArticleRow = FIRST_GLOBAL_INDICATOR_ROW + 2
-    writeArticleIndicator(wb, startArticleRow)
+    writeArticleIndicator(startArticleRow)
 
     val totalArticleTabSize = statByArticle.size + statByArticle185.size + 2
     val startRangRow = FIRST_GLOBAL_INDICATOR_ROW
     val endRangeRow = startRangRow + totalArticleTabSize - 1
     val rangeRows = startRangRow..endRangeRow
-    setStyleForIndicatorRow(wb, rangeRows, ARTICLE_COLUMN, 0)
+    setStyleForIndicatorRow(WB_OUT, rangeRows, ARTICLE_COLUMN, 0)
 
-    writeArticleTotalSumm(wb)
+    writeArticleTotalSumm()
 }
 
-fun writeArticleIndicator(wb: HSSFWorkbook, startRow: Int) {
+fun writeArticleIndicator(startRow: Int) {
     var part185 = 0
     for(index in 0..(statByArticle.size - 1)) {
-        val row = wb.getSheetAt(0).getRow(startRow + index + part185)
+        val row = WB_OUT.getSheetAt(0).getRow(startRow + index + part185)
         writeIndicatorToTab(row, 5, statByArticle[index])
         val articleName = statByArticle[index].nameIndicator.substring(3)
         if(articleName == "185") {
             part185 = 5
-            writeArticle185Indicator(wb, startRow + index + 1)
+            writeArticle185Indicator( startRow + index + 1)
         }
     }
 
 }
 
-fun writeGravityIndicator(wb: HSSFWorkbook) {
+fun writeGravityIndicator() {
     for(index in 0..1) {
-        val row = wb.getSheetAt(0).getRow(FIRST_GLOBAL_INDICATOR_ROW + index)
+        val row = WB_OUT.getSheetAt(0).getRow(FIRST_GLOBAL_INDICATOR_ROW + index)
         writeIndicatorToTab(row, 5, statByGravity[index + 2])
     }
 }
 
-fun writeArticle185Indicator(wb: HSSFWorkbook, startIndex: Int) {
+fun writeArticle185Indicator(startIndex: Int) {
     for(index in 0..(statByArticle185.size - 1)) {
-        val row = wb.getSheetAt(0).getRow(startIndex + index)
+        val row = WB_OUT.getSheetAt(0).getRow(startIndex + index)
         writeIndicatorToTab(row, 5, statByArticle185[index])
     }
 
@@ -56,12 +55,12 @@ fun createStatByArticle() : MutableList<StatForOutXLS> {
     return statByArticle
 }
 
-fun writeArticleTotalSumm(wb: HSSFWorkbook) {
+fun writeArticleTotalSumm() {
     val endRowIndex = FIRST_GLOBAL_INDICATOR_ROW + 2 + statByArticle.size + 5
-    val totalSummRow = wb.getSheetAt(0).getRow(endRowIndex)
+    val totalSummRow = WB_OUT.getSheetAt(0).getRow(endRowIndex)
     val totalSumm = createTotalSumm(statByArticle)
     writeIndicatorToTab(totalSummRow, ARTICLE_COLUMN.first, totalSumm)
-    setStyleForTotalSummCells(wb, ARTICLE_COLUMN, totalSummRow)
+    setStyleForTotalSummCells(WB_OUT, ARTICLE_COLUMN, totalSummRow)
 
 }
 

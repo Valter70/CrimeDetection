@@ -1,34 +1,32 @@
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
 fun main(args: Array<String>) {
 
     INPUT_XLS_FILE_NAME = args[0]
     OUTPUT_XLS_FILE_NAME = args[1]
 
-    val wbOut = HSSFWorkbook()
-    wbOut.createSheet("Загальна")
+    WB_OUT.createSheet("Загальна")
 
     println("Формування статистики по службах...")
-    writeHeaderOnMainSheet(wbOut)
-    GlobalRow(wbOut).createAllRowOnSheet()
+    writeHeaderOnMainSheet(WB_OUT)
+    GlobalRow(WB_OUT).createAllRowOnSheet()
     writeDepartTabOnMainSheet()
 
     println("Формування статистики по статтях...")
-    writeArticleTabOnMainSheet(wbOut)
+    writeArticleTabOnMainSheet()
 
     println("Формування статистики служб по статтях...")
-    wbOut.createSheet("Детальна")
+    WB_OUT.createSheet("Детальна")
     statByDepart.add(0, createTotalSumm(statByDepart))
-    writeHeaderOnDetailSheet(wbOut)
-    DetailRow(wbOut).createAllRowOnSheet()
-    writeTabOnDetailSheet(wbOut)
+    writeHeaderOnDetailSheet(WB_OUT)
+    DetailRow(WB_OUT).createAllRowOnSheet()
+    writeTabOnDetailSheet()
 
     println("Визначення параметрів документа для друку...")
-    setPrintSetup(wbOut)
+    setPrintSetup(WB_OUT)
 
-    wbOut.setActiveSheet(1)
+    WB_OUT.setActiveSheet(1)
 
-    closeOutXLSFile(wbOut)
+    closeOutXLSFile(WB_OUT)
 
     println("End of hard work!")
 }

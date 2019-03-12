@@ -1,4 +1,4 @@
-// Структура для формирования статистики
+// Структура для формирования показателей статистики
 data class StatForOutXLS(
     val nameIndicator: String,
     var pastYears: Int = 0,

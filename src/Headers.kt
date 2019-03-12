@@ -42,24 +42,26 @@ fun writeTabTitleOnMainSheet(sheet: HSSFSheet) {
 
     val row = sheet.createRow(4)
     row.heightInPoints = 26F
-    row.createCell(0).setCellValue("Служба")
-    row.createCell(1).setCellValue("Всього")
-    row.createCell(2).setCellValue("мин.роки")
-    row.createCell(3).setCellValue(CURRENT_YEAR.toString())
+    createTabTitleCell(row, DEPART_COLUMN.first)
     val style = createStyleWithBorder()
     style.setFont(setFontForTabTitle(WB_OUT.createFont(), 18))
-    setStyleForTabTitle(0..3, row, style)
+    setStyleForTabTitle(DEPART_COLUMN, row, style)
 
-    row.createCell(5).setCellValue("Стаття")
-    row.createCell(6).setCellValue("Всього")
-    row.createCell(7).setCellValue("мин.роки")
-    row.createCell(8).setCellValue(CURRENT_YEAR.toString())
-    setStyleForTabTitle(5..8, row, style)
+    createTabTitleCell(row, ARTICLE_COLUMN.first)
+    setStyleForTabTitle(ARTICLE_COLUMN, row, style)
+}
+
+fun createTabTitleCell(row: HSSFRow, startColumn: Int) {
+    row.createCell(startColumn).setCellValue("Стаття")
+    row.createCell(startColumn + 1).setCellValue("Всього")
+    row.createCell(startColumn + 2).setCellValue("мин.роки")
+    row.createCell(startColumn + 3).setCellValue(CURRENT_YEAR.toString())
+
 }
 
 fun writeTabTitleOnDetailSheet(sheet: HSSFSheet) {
-    WB_OUT.getSheetAt(1).createRow(4)
-    WB_OUT.getSheetAt(1).createRow(5)
+    sheet.createRow(4)
+    sheet.createRow(5)
     val style = createStyleWithBorder()
     style.setFont(setFontForTabTitle(WB_OUT.createFont(), 16))
 

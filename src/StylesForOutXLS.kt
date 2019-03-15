@@ -79,9 +79,3 @@ fun setStyleForIndicatorRow(rangeRows: IntRange, rangeColumns: IntRange, sheet: 
         setStyleForTabTitle(rangeColumns, row, style)
     }
 }
-
-fun createRowWithHeight(sheet: HSSFSheet, range: IntRange) {
-    for(row in range) {
-        sheet.createRow(row).heightInPoints = 26F
-    }
-}

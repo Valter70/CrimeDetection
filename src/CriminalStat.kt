@@ -91,3 +91,7 @@ fun getStringOfMonth() : String =
         12 -> "грудень"
         else -> throw IndexOutOfBoundsException("Невірний місяць")
 }
+
+fun createRow(rowHeight: RowHeight) {
+    rowHeight.createAllRowOnSheet()
+}

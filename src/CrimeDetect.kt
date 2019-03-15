@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
 
     println("Формування статистики по службах...")
     writeHeaderOnMainSheet()
-    GlobalRow().createAllRowOnSheet()
+    createRow(GlobalRow())
     writeDepartTabOnMainSheet()
 
     println("Формування статистики по статтях...")
@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     WB_OUT.createSheet("Детальна")
     statByDepart.add(0, createTotalSumm(statByDepart))
     writeHeaderOnDetailSheet()
-    DetailRow().createAllRowOnSheet()
+    createRow(DetailRow())
     writeTabOnDetailSheet()
 
     println("Визначення параметрів документа для друку...")

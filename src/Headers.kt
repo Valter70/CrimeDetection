@@ -84,7 +84,7 @@ fun writeGUNPHeader(sheet: HSSFSheet, style: HSSFCellStyle) {
     val lastGUNPCol = firstGUNPCol + (statByDepart.size - 5) * 2 - 1
     for(index in firstGUNPCol..lastGUNPCol)
         sheet.getRow(3).createCell(index)
-    sheet.getRow(3).getCell(firstGUNPCol).setCellValue("ГУНП")
+    sheet.getRow(3).getCell(firstGUNPCol).setCellValue("ІНШІ")
     sheet.addMergedRegion(CellRangeAddress(3, 3, firstGUNPCol, lastGUNPCol))
     setStyleForTabTitle(firstGUNPCol..lastGUNPCol, sheet.getRow(3), style)
 

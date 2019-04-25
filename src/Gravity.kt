@@ -18,11 +18,8 @@ fun getCodeGravity(strGravity: String) =
 fun createStatByGravity() : MutableList<StatForOutXLS> {
     val statByGravity: MutableList<StatForOutXLS> = mutableListOf(StatForOutXLS(""))
     for(rec in Gravity.values()) {
-        var gravity: String
-        if(rec.statName.toLowerCase() == "особливо тяжкий")
-            gravity = "ос.тяжкий"
-        else
-            gravity = rec.statName.toLowerCase()
+        val gravity = if(rec.statName.toLowerCase() == "особливо тяжкий") "ос.тяжкий"
+                      else rec.statName.toLowerCase()
         val currentYear = crimeList.count { it.isCurrentYear && it.gravity == rec }
         val pastYear = crimeList.count { !it.isCurrentYear && it.gravity == rec }
         statByGravity.add(StatForOutXLS(gravity, pastYear, currentYear))

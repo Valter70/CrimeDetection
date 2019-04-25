@@ -9,11 +9,12 @@ enum class Department(val statName: String, val shortName: String) {
     UZE("ПРАЦ.ДЕПАРТ. ЗАХИЧТУ ЕКОНОМІКИ (ДЗЕ)", "УЗЕ"),
     UKP("ПРАЦ.ПIДРОЗ. КІБЕРПОЛІЦІЇ", "Кіберполіція"),
     VBTL("ПРАЦ.ПIДРОЗД.БОР.ЗI ЗЛОЧ.ПОВЯЗАН.З ТОРГ.ЛЮДЬМИ", "ВБЗПТЛ"),
-    SBU("ПРАЦ.СБУ", "СБУ")
+    SBU("ПРАЦ.СБУ", "СБУ"),
+    PP("ПАТРУЛЬНОЇ ПОЛІЦІЇ", "Патрульна")
 
 }
 
-val DEPART_GUNP = setOf<String>("УПН", "ВВБ", "УЗЕ", "Кіберполіція", "ВБЗПТЛ", "СБУ")
+val DEPART_GUNP = setOf<String>("УПН", "ВВБ", "УЗЕ", "Кіберполіція", "ВБЗПТЛ", "СБУ", "Патрульна")
 
 fun getCodeDepart(strDepart: String) =
     when(strDepart) {
@@ -27,5 +28,6 @@ fun getCodeDepart(strDepart: String) =
         "ПРАЦ.ПIДРОЗ. КІБЕРПОЛІЦІЇ", "Кіберполіція" -> Department.UKP
         "ПРАЦ.ПIДРОЗД.БОР.ЗI ЗЛОЧ.ПОВЯЗАН.З ТОРГ.ЛЮДЬМИ", "ВБЗПТЛ" -> Department.VBTL
         "ПРАЦ.СБУ", "СБУ" -> Department.SBU
+        "ПАТРУЛЬНОЇ ПОЛІЦІЇ", "Патрульна" -> Department.PP
         else -> throw IndexOutOfBoundsException("Невірна назва служби: $strDepart")
     }

@@ -1,5 +1,6 @@
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.FileInputStream
+import java.time.LocalDate
 
 class CriminalCase(currentRowIndex: Int) {
     private val wbIn = HSSFWorkbook(FileInputStream(INPUT_XLS_FILE_NAME))
@@ -13,10 +14,14 @@ class CriminalCase(currentRowIndex: Int) {
         get() = getDepartValue()
     val gravity: Gravity
         get() = getGravityValue()
+    val suspicionDate: LocalDate
+        get() = getSuspicionDateValue()
     val isCurrentYear: Boolean = number.substring(1..4).toInt() == CURRENT_YEAR
 
     private fun getNumberValue() : String {
         var numKP = ""
+        if (currentRow.getCell(0).numericCellValue == 0.0)
+            return "00000"
         for(i in 0..2) {
             val partOfNumber = currentRow.getCell(i).numericCellValue.toInt().toString()
             numKP += partOfNumber
@@ -47,11 +52,16 @@ class CriminalCase(currentRowIndex: Int) {
         return getCodeGravity(currentRow.getCell(gravityCell).stringCellValue)
     }
 
+    private fun getSuspicionDateValue() : LocalDate {
+        val suspicionDateCell = headerNames().indexOf("19.Дата повiдомлення про пiдозру")
+        return java.sql.Date(currentRow.getCell(suspicionDateCell).dateCellValue.time).toLocalDate()
+    }
+
     private fun headerNames() : List<String> {
         var numRow = 3
         val sheet = wbIn.getSheetAt(0)
         val listHeader = mutableListOf("")
-        for(i in 0..(sheet.getRow(numRow).lastCellNum - 1)) {
+        for(i in 0 until sheet.getRow(numRow).lastCellNum) {
             val cellValue = sheet.getRow(numRow).getCell(i).stringCellValue
             if(cellValue == "Форма2") {
                 numRow++

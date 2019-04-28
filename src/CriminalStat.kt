@@ -13,10 +13,13 @@ fun createCrimeListFromXLS() : List<CriminalCase> {
     val crimeList: MutableList<CriminalCase> = mutableListOf(CriminalCase(5))
     var currentRecord = 5
     while(currentRecord <= sheetStat.lastRowNum) {
-        val firstNumberValue = sheetStat.getRow(currentRecord).getCell(0).numericCellValue
-        if(isCorrectNumber(firstNumberValue)) {
-            val crimeCase = CriminalCase(currentRecord)
+        val crimeCase = CriminalCase(currentRecord)
+        if(crimeCase.number != "00000") {
             crimeList.add(crimeCase)
+        } else {
+            if (crimeCase.suspicionDate.monthValue != crimeList.last().suspicionDate.monthValue) {
+                crimeList.remove(crimeList.last())
+            }
         }
         currentRecord++
     }
@@ -30,8 +33,6 @@ fun removeAllMergedRegions(wb: HSSFWorkbook) = with(wb.getSheetAt(0)) {
     for(index in 0..numMergedRegions)
         removeMergedRegion(index)
 }
-
-fun isCorrectNumber(number: Double) = number != 0.0
 
 fun closeOutXLSFile(wb: HSSFWorkbook) {
     val fosE = FileOutputStream(OUTPUT_XLS_FILE_NAME)

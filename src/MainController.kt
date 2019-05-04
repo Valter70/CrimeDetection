@@ -67,11 +67,11 @@ class MainController {
         INPUT_XLS_FILE_NAME = inputFileName.text
         OUTPUT_XLS_FILE_NAME = outputFileName.text
 
-        if(INPUT_XLS_FILE_NAME == "" || OUTPUT_XLS_FILE_NAME == "") {
+        if(!isValidFileName()) {
             val style = SWT.ICON_ERROR
             val mBox = MessageBox(Shell(SWT.APPLICATION_MODAL), style)
             mBox.text = "Помилка!"
-            mBox.message = "Не вказані імена файлів!"
+            mBox.message = "Не коректні імена файлів!\n" + "Необхідні файли *.xls!   "
             mBox.open()
         } else {
             closeDialog(btnCancel)
@@ -81,6 +81,11 @@ class MainController {
             fileWriter.close()
         }
     }
+
+    private fun isValidFileName() : Boolean =
+        INPUT_XLS_FILE_NAME != "" && OUTPUT_XLS_FILE_NAME != "" &&
+        INPUT_XLS_FILE_NAME.substringAfter(".") == "xls" && OUTPUT_XLS_FILE_NAME.substringAfter(".") == "xls"
+
 
     private fun closeDialog(btn: Button) {
         val stage = btn.scene.window as Stage

@@ -1,8 +1,5 @@
 
-fun main(args: Array<String>) {
-
-    INPUT_XLS_FILE_NAME = args[0]
-    OUTPUT_XLS_FILE_NAME = args[1]
+fun crimeDetection() {
 
     WB_OUT.createSheet("Загальна")
 

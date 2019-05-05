@@ -43,6 +43,8 @@ class MainController {
     @FXML
     private fun getInputXLSFileName() {
         val dlgOpen = FileDialog(Shell(), SWT.OPEN)
+        dlgOpen.filterNames = arrayOf("Excel")
+        dlgOpen.filterExtensions = arrayOf("*.xls")
         val fName = dlgOpen.open()
         if (fName != null)
             inputFileName.text = fName
@@ -51,6 +53,8 @@ class MainController {
     @FXML
     private fun getOutputXLSFileName() {
         val dlgSave = FileDialog(Shell(), SWT.SAVE)
+        dlgSave.filterNames = arrayOf("Excel")
+        dlgSave.filterExtensions = arrayOf("*.xls")
         val fName = dlgSave.open()
         if (fName != null)
             outputFileName.text = fName

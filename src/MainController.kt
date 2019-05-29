@@ -1,12 +1,12 @@
 import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.stage.Stage
-import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.FileDialog
-import org.eclipse.swt.widgets.MessageBox
-import org.eclipse.swt.widgets.Shell
 import java.io.*
 import java.time.LocalDate
+import javax.swing.JFileChooser
+import javax.swing.JOptionPane
+import javax.swing.UIManager
+import javax.swing.filechooser.FileNameExtensionFilter
 
 class MainController {
 
@@ -42,22 +42,25 @@ class MainController {
 
     @FXML
     private fun getInputXLSFileName() {
-        val dlgOpen = FileDialog(Shell(), SWT.OPEN)
-        dlgOpen.filterNames = arrayOf("Excel")
-        dlgOpen.filterExtensions = arrayOf("*.xls")
-        val fName = dlgOpen.open()
-        if (fName != null)
-            inputFileName.text = fName
+        val fileOpen = JFileChooser(".")
+        fileOpen.fileFilter = FileNameExtensionFilter("Excel", "xls", "xlsx")
+        val ret = fileOpen.showDialog(null, "Открыть файл")
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            inputFileName.text = fileOpen.selectedFile.absolutePath
+            if (outputFileName.text == "") {
+                outputFileName.text = inputFileName.text.substringBeforeLast("\\") + "\\" + setDefaultOutputFileName(inputFileName.text)
+            }
+        }
     }
 
     @FXML
     private fun getOutputXLSFileName() {
-        val dlgSave = FileDialog(Shell(), SWT.SAVE)
-        dlgSave.filterNames = arrayOf("Excel")
-        dlgSave.filterExtensions = arrayOf("*.xls")
-        val fName = dlgSave.open()
-        if (fName != null)
-            outputFileName.text = fName
+        val fileSave = JFileChooser(".")
+        fileSave.fileFilter = FileNameExtensionFilter("Excel", "xls", "xlsx")
+        val ret = fileSave.showDialog(null, "Сохранить в файл")
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            outputFileName.text = fileSave.selectedFile.absolutePath
+        }
     }
 
     @FXML
@@ -72,11 +75,7 @@ class MainController {
         OUTPUT_XLS_FILE_NAME = outputFileName.text
 
         if(!isValidFileName()) {
-            val style = SWT.ICON_ERROR
-            val mBox = MessageBox(Shell(SWT.APPLICATION_MODAL), style)
-            mBox.text = "Помилка!"
-            mBox.message = "Не коректні імена файлів!\n" + "Необхідні файли *.xls!   "
-            mBox.open()
+            JOptionPane.showMessageDialog(null, "Не коректні імена файлів!\n" + "Необхідні файли *.xls!   ", "Помилка!", JOptionPane.ERROR_MESSAGE)
         } else {
             closeDialog(btnCancel)
             val fileWriter = FileWriter(RESOURCE_FILE_NAME, false)
@@ -105,5 +104,25 @@ class MainController {
             inputFileName.text = filesName[0]
             outputFileName.text = filesName[1]
         }
+
+        localizeDialog()
+    }
+
+    private fun localizeDialog() {
+        UIManager.put("FileChooser.saveButtonText", "Сохранить");
+        UIManager.put("FileChooser.saveButtonToolTipText", "Сохранить выбранный файл");
+        UIManager.put("FileChooser.openButtonText", "Открыть");
+        UIManager.put("FileChooser.openButtonToolTipText", "Открыть выбранный файл");
+        UIManager.put("FileChooser.cancelButtonText", "Отмена");
+        UIManager.put("FileChooser.cancelButtonToolTipText", "Отменить открытие файла");
+        UIManager.put("FileChooser.fileNameLabelText", "Имя файла");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Типы файлов");
+        UIManager.put("FileChooser.lookInLabelText", "Директория");
+        UIManager.put("FileChooser.saveInLabelText", "Сохранить в директории");
+        UIManager.put("FileChooser.folderNameLabelText", "Путь директории");
+    }
+
+    private fun setDefaultOutputFileName(path: String) : String {
+        return path.substringAfterLast("\\").substringBefore(".") + "-outTab." + path.substringAfter(".")
     }
 }
